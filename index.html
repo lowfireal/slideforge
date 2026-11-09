@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#3A36F2">
+<title>SlideForge — презентации с ИИ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&family=Unbounded:wght@600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+:root{--bg:#EDF0F7;--cd:#fff;--ink:#12152B;--mu:#5E6580;--ln:#D9DEEC;--br:#3A36F2;--on:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#0E1020;--cd:#171A30;--ink:#ECEFFA;--mu:#9AA1BD;--ln:#2A2F4D;--br:#8583FF;--on:#0E1020}}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:500 16px/1.45 Manrope,system-ui,sans-serif;padding:max(18px,env(safe-area-inset-top)) 16px 0}
+main{max-width:560px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{font:800 26px Unbounded,system-ui,sans-serif;letter-spacing:-.02em}
+header p{color:var(--mu);font-size:14px}
+.ic{width:46px;height:46px;border-radius:14px;border:1.5px solid var(--ln);background:var(--cd);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.card{background:var(--cd);border-radius:22px;padding:18px;margin-bottom:14px}
+label.l,.l{display:block;font-weight:700;font-size:14px;color:var(--mu);margin-bottom:9px}
+textarea{width:100%;min-height:128px;border:0;resize:vertical;background:transparent;color:var(--ink);font:600 20px/1.35 Manrope,system-ui,sans-serif;outline:0}
+textarea::placeholder{color:var(--mu);opacity:.7}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chips button{border:0;background:var(--bg);color:var(--ink);padding:8px 12px;border-radius:99px;font:600 13px Manrope,sans-serif;cursor:pointer}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{flex:1;min-width:0;padding:12px;border:1.5px solid var(--ln);background:transparent;color:var(--ink);border-radius:14px;font:700 15px Manrope,sans-serif;cursor:pointer}
+.seg button.on{background:var(--br);border-color:var(--br);color:var(--on)}
+.th button{flex:1 1 42%;display:flex;align-items:center;gap:9px;text-align:left}
+.th i{flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--ln);background:linear-gradient(135deg,var(--b) 50%,var(--a) 50%)}
+.row{margin-top:18px}
+.big{display:flex;align-items:baseline;gap:8px}
+.big b{font:800 40px Unbounded,sans-serif;min-width:2ch}
+input[type=range]{width:100%;accent-color:var(--br);height:34px}
+select,input[type=text],input[type=password]{width:100%;padding:13px;border-radius:14px;border:1.5px solid var(--ln);background:var(--bg);color:var(--ink);font:600 15px Manrope,sans-serif}
+.sw{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-top:1px solid var(--ln);font-weight:700}
+.sw input{appearance:none;flex:none;width:50px;height:30px;border-radius:99px;background:var(--ln);position:relative;transition:.2s;cursor:pointer}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}
+.sw input:checked{background:var(--br)}.sw input:checked::after{transform:translateX(20px)}
+.bar{position:sticky;bottom:0;padding:22px 0 calc(14px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 35%)}
+.go{width:100%;height:62px;border:0;border-radius:20px;background:var(--br);color:var(--on);font:800 16px Unbounded,sans-serif;cursor:pointer}
+.go:disabled{opacity:.6}
+#prog{display:none}#prog.on{display:block}
+.pb{height:8px;border-radius:9px;background:var(--ln);overflow:hidden;margin-top:12px}.pb div{height:100%;width:0;background:var(--br);transition:width .4s}
+#res{display:none}#res.on{display:block}
+.dl{display:block;width:100%;margin:14px 0;height:54px;border:0;border-radius:16px;background:var(--br);color:var(--on);font:800 15px Unbounded,sans-serif;cursor:pointer}
+.sl{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--ln)}
+.sl img,.sl span{flex:none;width:64px;height:48px;border-radius:10px;object-fit:cover;background:var(--bg)}
+.sl b{font-size:14px;line-height:1.3}
+dialog{width:min(520px,100%);max-height:90vh;margin:auto auto 0;border:0;border-radius:26px 26px 0 0;background:var(--cd);color:var(--ink);padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
+dialog::backdrop{background:rgba(10,12,30,.55)}
+dialog h2{font:800 20px Unbounded,sans-serif;margin-bottom:14px}
+dialog .row{margin-top:14px}
+small{display:block;color:var(--mu);font-size:13px;margin-top:6px}
+small a{color:var(--br)}
+#toast{position:fixed;left:16px;right:16px;bottom:100px;max-width:528px;margin:auto;padding:14px 16px;border-radius:16px;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;display:none;z-index:9}
+:focus-visible{outline:3px solid var(--br);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body><main>
+<header><div><h1>SlideForge</h1><p>Презентация из одной фразы</p></div>
+<button class="ic" id="gear" aria-label="Настройки"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></header>
+
+<section class="card">
+<textarea data-k="topic" id="topic" placeholder="О чём презентация? Тема, идея или целый промпт с пожеланиями" aria-label="Тема презентации"></textarea>
+<div class="chips" id="chips"></div>
+</section>
+
+<section class="card">
+<div class="l">Язык презентации</div>
+<div class="seg" data-k="lang"><button data-v="ru">Русский</button><button data-v="en">English</button><button data-v="bg">Български</button></div>
+<div class="row"><div class="l">Количество слайдов</div>
+<div class="big"><b id="nv">10</b><span>слайдов всего</span></div>
+<input type="range" min="4" max="30" data-k="n" aria-label="Количество слайдов"></div>
+<div class="row"><div class="l">Цветовая тема</div><div class="seg th" data-k="theme" id="themes"></div></div>
+<div class="row"><div class="l">Объём текста</div>
+<div class="seg" data-k="dens"><button data-v="short">Кратко</button><button data-v="medium">Средне</button><button data-v="detailed">Подробно</button></div></div>
+<div class="row"><label class="l" for="tone">Тон</label>
+<select id="tone" data-k="tone"><option value="professional and business-like">Деловой</option><option value="educational, clear, with examples">Учебный</option><option value="creative, vivid and inspiring">Творческий</option><option value="simple, friendly and conversational">Простой и дружелюбный</option></select></div>
+</section>
+
+<section class="card" style="padding-top:6px;padding-bottom:6px">
+<label class="sw">Картинки по теме слайдов<input type="checkbox" data-k="img"></label>
+<label class="sw">Заметки докладчика<input type="checkbox" data-k="notes"></label>
+<label class="sw">Слайд с планом<input type="checkbox" data-k="agenda"></label>
+<label class="sw">Финальный слайд<input type="checkbox" data-k="closing"></label>
+</section>
+
+<section class="card" id="prog"><b id="st">Начинаю…</b><div class="pb"><div id="pbar"></div></div></section>
+<section class="card" id="res"><b id="rt"></b><small id="rn"></small><button class="dl" id="dl">Скачать .pptx</button><div id="list"></div></section>
+
+<div class="bar"><button class="go" id="gen">Создать презентацию</button></div>
+</main>
+<div id="toast" role="status"></div>
+
+<dialog id="set"><h2>Настройки ИИ</h2>
+<div class="l">Откуда брать текст</div>
+<div class="seg" data-k="prov"><button data-v="gemini">Gemini (бесплатный ключ)</button><button data-v="poll">Без ключа (слабее)</button></div>
+<div class="row"><label class="l" for="gk">Ключ Gemini</label><input id="gk" type="password" data-k="gkey" autocomplete="off" placeholder="AIza…">
+<small>Бесплатно, без карты: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. Ключ хранится только в твоём телефоне.</small></div>
+<div class="row"><label class="l" for="md">Модель</label><input id="md" type="text" data-k="model" list="ml"><datalist id="ml"><option value="gemini-3.6-flash"><option value="gemini-3.8-flash"><option value="gemini-3.5-flash-lite"><option value="gemini-3.1-flash-lite"></datalist>
+<small>Если одна модель недоступна, приложение само попробует другие.</small></div>
+<div class="row"><label class="l" for="pk">Ключ Pexels (необязательно)</label><input id="pk" type="password" data-k="pkey" autocomplete="off" placeholder="Для лучших картинок">
+<small>Бесплатно: <a href="https://www.pexels.com/api/" target="_blank" rel="noopener">pexels.com/api</a>. Без ключа картинки берутся из Wikimedia Commons.</small></div>
+<button class="dl" id="x" style="margin-bottom:0">Готово</button></dialog>
+
+<script>
+const $=s=>document.querySelector(s);
+const D={lang:'ru',n:10,theme:'ultra',tone:'professional and business-like',dens:'medium',img:true,notes:true,agenda:false,closing:true,prov:'gemini',gkey:'',model:'gemini-3.6-flash',pkey:'',topic:''};
+let S={...D};try{S={...D,...JSON.parse(localStorage.sf||'{}')}}catch(e){}
+const save=()=>{try{localStorage.sf=JSON.stringify(S)}catch(e){}};
+const FB=['gemini-3.8-flash','gemini-3.5-flash-lite','gemini-3.1-flash-lite'];
+const TH={
+ultra:{n:'Ультрамарин',bg:'FFFFFF',fg:'12152B',acc:'3A36F2',cb:'12152B',cf:'FFFFFF',mu:'5E6580'},
+graph:{n:'Графит',bg:'14161F',fg:'F2F3F7',acc:'FFB020',cb:'0C0E14',cf:'FFFFFF',mu:'A3A8BA'},
+emer:{n:'Изумруд',bg:'F6FBF8',fg:'0F2A22',acc:'0E9F6E',cb:'0F2A22',cf:'FFFFFF',mu:'52695F'},
+sun:{n:'Закат',bg:'FFF8F3',fg:'2B1620',acc:'E8453C',cb:'2B1620',cf:'FFF1E8',mu:'7A5A60'},
+mono:{n:'Монохром',bg:'FFFFFF',fg:'111111',acc:'111111',cb:'111111',cf:'FFFFFF',mu:'666666'}};
+const TX={ru:{n:'Russian',ag:'План',th:'Спасибо за внимание',q:'Вопросы?'},en:{n:'English',ag:'Agenda',th:'Thank you',q:'Questions?'},bg:{n:'Bulgarian',ag:'План',th:'Благодаря за вниманието',q:'Въпроси?'}};
+const DN={short:[3,10],medium:[4,16],detailed:[5,22]};
+const EX=['История космонавтики','Marketing plan for a coffee shop','Здравословното хранене'];
+
+$('#themes').innerHTML=Object.entries(TH).map(([k,t])=>`<button data-v="${k}" style="--a:#${t.acc};--b:#${t.bg}"><i></i>${t.n}</button>`).join('');
+EX.forEach(t=>{const b=document.createElement('button');b.textContent=t;b.onclick=()=>{$('#topic').value=S.topic=t;save()};$('#chips').append(b)});
+document.querySelectorAll('[data-k]').forEach(el=>{const k=el.dataset.k;
+ if(el.classList.contains('seg')){const sync=()=>el.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==S[k]));
+  el.onclick=e=>{const b=e.target.closest('button');if(b){S[k]=b.dataset.v;save();sync()}};sync()}
+ else if(el.type=='checkbox'){el.checked=!!S[k];el.onchange=()=>{S[k]=el.checked;save()}}
+ else{el.value=S[k];el.oninput=()=>{S[k]=el.type=='range'?+el.value:el.value;save();if(k=='n')$('#nv').textContent=el.value}}});
+$('#nv').textContent=S.n;
+$('#gear').onclick=()=>$('#set').showModal();$('#x').onclick=()=>$('#set').close();
+$('#set').onclick=e=>{if(e.target.id=='set')e.target.close()};
+
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(tt);tt=setTimeout(()=>t.style.display='none',5000)};
+const step=(m,p)=>{$('#st').textContent=m;$('#pbar').style.width=p+'%'};
+
+async function ask(p){
+ if(S.prov=='poll'){
+  const r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',jsonMode:true,messages:[{role:'system',content:'Reply with valid JSON only.'},{role:'user',content:p}]})});
+  if(!r.ok)throw Error('Сервер без ключа сейчас недоступен. Вставь ключ Gemini в настройках');
+  return (await r.json()).choices[0].message.content}
+ let err='';
+ for(const m of [S.model.trim(),...FB.filter(x=>x!=S.model.trim())]){
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(S.gkey.trim())}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}],generationConfig:{responseMimeType:'application/json',temperature:.8,maxOutputTokens:24000}})});
+  if(r.ok){const j=await r.json();const t=(j.candidates?.[0]?.content?.parts||[]).map(x=>x.text||'').join('');if(t)return t;err='ИИ вернул пустой ответ';continue}
+  if([404,429,500,503].includes(r.status)){err=r.status==429?'Лимит бесплатных запросов. Подожди минуту и повтори':'Модель '+m+' недоступна';continue}
+  const em=((await r.json().catch(()=>({}))).error?.message||'').slice(0,90);
+  throw Error((r.status==400||r.status==403?'Ключ Gemini не подошёл. Проверь его в настройках':'Ошибка ИИ '+r.status)+(em?' ('+em+')':''))}
+ throw Error(err||'ИИ не ответил')}
+
+function prompt(n){const [b,w]=DN[S.dens];return `You are a world-class presentation writer and designer.
+Topic / brief from the user: "${S.topic.trim()}"
+Write ALL text in ${TX[S.lang].n}. Tone: ${S.tone}.
+Create exactly ${n} content slides (do not count title and closing slides).
+Each slide: ONE clear idea; title up to 8 words, an informative claim rather than a label; exactly ${b} bullets, each up to ${w} words, concrete (facts, numbers, examples), no filler, no repetition between slides.
+Story: introduction, development, conclusion with takeaways.
+image_query: 2-5 ENGLISH words describing a concrete, photographable scene that visually matches that slide (no abstract words, no text on image).
+notes: 2-3 sentences of speaker notes.
+Return ONLY JSON: {"title":"","subtitle":"","image_query":"","slides":[{"title":"","bullets":[""],"image_query":"","notes":""}]}`}
+
+function parse(t){t=t.replace(/```(?:json)?/g,'');const d=JSON.parse(t.slice(t.indexOf('{'),t.lastIndexOf('}')+1));
+ if(!d.slides?.length)throw Error('ИИ вернул пустую презентацию. Повтори');
+ d.title=String(d.title||S.topic).slice(0,90);d.subtitle=String(d.subtitle||'');
+ d.slides=d.slides.map(s=>({title:String(s.title||''),bullets:(s.bullets||[]).map(String).slice(0,6),image_query:String(s.image_query||d.title),notes:String(s.notes||'')}));return d}
+
+async function findImg(q,used){
+ for(const t of [q,q.split(' ').slice(0,2).join(' ')]){try{let l=[];
+  if(S.pkey.trim())try{const r=await fetch(`https://api.pexels.com/v1/search?per_page=6&orientation=portrait&query=${encodeURIComponent(t)}`,{headers:{Authorization:S.pkey.trim()}});if(r.ok)l=(await r.json()).photos.map(p=>p.src.large)}catch(e){}
+  if(!l.length){const r=await fetch(`https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch=${encodeURIComponent(t+' filetype:bitmap')}&prop=imageinfo&iiprop=url|size|mime&iiurlwidth=1200`);
+   const j=await r.json();l=Object.values(j.query?.pages||{}).sort((a,b)=>a.index-b.index).map(p=>p.imageinfo?.[0]).filter(i=>i&&i.mime=='image/jpeg'&&i.width>=900).map(i=>i.thumburl)}
+  const u=l.find(x=>!used.has(x));if(u){used.add(u);return u}}catch(e){}}}
+
+async function prep(url,w,h){
+ const rs=await fetch(url);if(!rs.ok)throw 0;const b=await rs.blob(),u=URL.createObjectURL(b);
+ const im=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=u});
+ const ar=w/h,sw=Math.min(im.width,im.height*ar),sh=sw/ar,c=document.createElement('canvas');
+ c.width=Math.min(1100,Math.round(sw));c.height=Math.round(c.width/ar);
+ c.getContext('2d').drawImage(im,(im.width-sw)/2,(im.height-sh)/2,sw,sh,0,0,c.width,c.height);
+ URL.revokeObjectURL(u);return c.toDataURL('image/jpeg',.82)}
+
+async function getImg(q,used,w,h){try{const u=await findImg(q,used);return u?await prep(u,w,h):null}catch(e){return null}}
+
+function build(d,im){
+ const T=TH[S.theme],L=TX[S.lang],F='Arial',p=new PptxGenJS();p.layout='LAYOUT_16x9';p.title=d.title;
+ const bar=(s,x,y)=>s.addShape(p.ShapeType.rect,{x,y,w:.7,h:.07,fill:{color:T.acc},line:{color:T.acc}});
+ let s=p.addSlide();s.background={color:T.cb};const tw=im.cover?4.7:8.8;
+ if(im.cover)s.addImage({data:im.cover,x:5.5,y:0,w:4.5,h:5.625});
+ bar(s,.6,1.3);
+ s.addText(d.title,{x:.6,y:1.5,w:tw,h:2.1,fontFace:F,fontSize:d.title.length>60?26:d.title.length>40?30:36,bold:true,color:T.cf,valign:'top',margin:0});
+ if(d.subtitle)s.addText(d.subtitle,{x:.6,y:3.7,w:tw,h:1,fontFace:F,fontSize:16,color:'C3C8DA',valign:'top',margin:0});
+ if(S.agenda){s=p.addSlide();s.background={color:T.bg};bar(s,.6,.5);
+  s.addText(L.ag,{x:.6,y:.65,w:8.8,h:.8,fontFace:F,fontSize:28,bold:true,color:T.fg,valign:'top',margin:0});
+  const ts=d.slides.map(x=>x.title),two=ts.length>7,h=two?Math.ceil(ts.length/2):ts.length;
+  [ts.slice(0,h),ts.slice(h)].forEach((c,k)=>{if(c.length)s.addText(c.map(t=>({text:t,options:{bullet:{type:'number',numberStartAt:k*h+1},breakLine:true}})),{x:k?5.2:.6,y:1.7,w:two?4.3:8.8,h:3.5,fontFace:F,fontSize:two?14:18,color:T.fg,valign:'top',paraSpaceAfter:8,margin:0})})}
+ d.slides.forEach((c,i)=>{const img=im[i],right=i%2==0,x=img?(right?.6:4.5):.6,w=img?5:8.8;
+  s=p.addSlide();s.background={color:T.bg};
+  if(img)s.addImage({data:img,x:right?6.1:0,y:0,w:3.9,h:5.625});
+  bar(s,x,.5);
+  s.addText(c.title,{x,y:.65,w,h:1.1,fontFace:F,fontSize:img?22:26,bold:true,color:T.fg,valign:'top',margin:0});
+  const n=c.bullets.join('').length,fs=(n>420?14:n>300?16:n>180?18:20)+(img?0:1);
+  s.addText(c.bullets.map(b=>({text:b,options:{bullet:{indent:16},breakLine:true}})),{x,y:1.95,w,h:3.1,fontFace:F,fontSize:fs,color:T.fg,valign:'top',paraSpaceAfter:9,margin:0});
+  s.addText(String(i+2+(S.agenda?1:0)),{x,y:5.15,w:.6,h:.3,fontFace:F,fontSize:10,color:T.mu,margin:0});
+  if(S.notes&&c.notes)s.addNotes(c.notes)});
+ if(S.closing){s=p.addSlide();s.background={color:T.cb};
+  s.addShape(p.ShapeType.rect,{x:4.65,y:1.9,w:.7,h:.07,fill:{color:T.acc},line:{color:T.acc}});
+  s.addText(L.th,{x:.6,y:2.1,w:8.8,h:1.2,fontFace:F,fontSize:40,bold:true,color:T.cf,align:'center',valign:'middle',margin:0});
+  s.addText(L.q,{x:.6,y:3.4,w:8.8,h:.6,fontFace:F,fontSize:20,color:'C3C8DA',align:'center',margin:0})}
+ return p}
+
+let last;
+$('#dl').onclick=()=>last&&last.p.writeFile({fileName:last.name});
+$('#gen').onclick=async()=>{
+ if(!S.topic.trim())return toast('Напиши тему презентации');
+ if(S.prov=='gemini'&&!S.gkey.trim()){$('#set').showModal();return toast('Вставь бесплатный ключ Gemini')}
+ const g=$('#gen');g.disabled=true;$('#res').classList.remove('on');$('#prog').classList.add('on');
+ try{
+  step('Придумываю структуру и текст…',8);
+  const n=S.n-1-(S.closing?1:0)-(S.agenda?1:0);
+  let d;for(let a=0;a<2&&!d;a++){try{d=parse(await ask(prompt(n)))}catch(e){if(a||!(e instanceof SyntaxError||/пустую/.test(e.message)))throw e}}
+  const im={},used=new Set(),jobs=[];
+  if(S.img){jobs.push(['cover',d.title+' '+(d.image_query||''),4.5,5.625]);d.slides.forEach((c,i)=>jobs.push([i,c.image_query,3.9,5.625]))}
+  let done=0;const q=[...jobs];
+  await Promise.all([0,1,2,3].map(async()=>{while(q.length){const [k,t,w,h]=q.shift();im[k]=await getImg(k=='cover'?(d.image_query||d.title):t,used,w,h);step(`Подбираю картинки… ${++done}/${jobs.length}`,15+75*done/jobs.length)}}));
+  step('Собираю файл…',95);
+  const p=build(d,im);last={p,name:(d.title.replace(/[^\p{L}\p{N} ]/gu,'').trim().slice(0,50)||'presentation')+'.pptx'};
+  step('Готово',100);
+  $('#rt').textContent=d.title;$('#rn').textContent=`${S.n} слайдов, ${TX[S.lang].n}`;
+  const ls=$('#list');ls.innerHTML='';
+  d.slides.forEach((c,i)=>{const r=document.createElement('div');r.className='sl';let t;if(im[i]){t=document.createElement('img');t.src=im[i];t.alt=''}else t=document.createElement('span');const b=document.createElement('b');b.textContent=c.title;r.append(t,b);ls.append(r)});
+  $('#prog').classList.remove('on');$('#res').classList.add('on');$('#res').scrollIntoView({behavior:'smooth'});
+ }catch(e){$('#prog').classList.remove('on');toast(e instanceof SyntaxError?'ИИ вернул неполный ответ. Повтори или уменьши число слайдов':/fetch|network/i.test(e.message)?'Нет связи с интернетом или сервис недоступен':e.message||'Не получилось. Повтори')}
+ g.disabled=false};
+</script></body></html>
